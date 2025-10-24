@@ -1,5 +1,5 @@
 import { StyledText } from '@/components/StyledText';
-import { Colors } from '@/constants/ui';
+import { COLORS } from '@/constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         flexDirection: 'row',
         alignItems: 'stretch',
-        backgroundColor: Colors.primary,
+        backgroundColor: COLORS.PRIMARY,
     },
     link: {
         justifyContent: 'center',
@@ -45,10 +45,10 @@ const styles = StyleSheet.create({
     },
     linkIcon: {
         fontSize: 28,
-        color: Colors.white,
+        color: COLORS.WHITE,
     },
     linkLabel: {
         fontSize: 12,
-        color: Colors.white,
+        color: COLORS.WHITE,
     },
 });

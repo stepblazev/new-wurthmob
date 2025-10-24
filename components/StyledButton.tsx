@@ -1,21 +1,37 @@
-import { Colors } from '@/constants/ui';
+import { COLORS } from '@/constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import { StyledText } from './StyledText';
 
+type StyledButtonType = 'primary' | 'secondary';
+
 type StyledButtonProps = TouchableOpacityProps & {
+    type?: StyledButtonType;
     label?: string;
-    icon?: React.ComponentProps<typeof Ionicons>["name"];
+    icon?: React.ComponentProps<typeof Ionicons>['name'];
     iconSize?: number;
 };
 
-export const StyledButton: React.FC<StyledButtonProps> = ({ label, icon, iconSize, style, ...props }) => {
+export const StyledButton: React.FC<StyledButtonProps> = ({ type = "primary", label, icon, iconSize, style, ...props }) => {
+    let backgroundColor, textColor;
+    
+    switch (type) {
+        case "primary":
+            backgroundColor = COLORS.PRIMARY_BUTTON_BG;
+            textColor = COLORS.PRIMARY_BUTTON_TEXT;
+            break;
+        case "secondary":
+            backgroundColor = COLORS.SECONDARY_BUTTON_BG;
+            textColor = COLORS.SECONDARY_BUTTON_TEXT;
+            break;
+    }
+
     return (
-        <TouchableOpacity style={[styles.base, style]} {...props}>
-            {icon && <Ionicons name={icon} style={[styles.icon, { fontSize: iconSize ?? 16 }]} />}
-            {label && <StyledText style={styles.text}>{label}</StyledText>}
+        <TouchableOpacity style={[styles.base, { backgroundColor }, style]} {...props}>
+            {icon && <Ionicons name={icon} style={[styles.icon, { color: textColor, fontSize: iconSize ?? 16 }]} />}
+            {label && <StyledText style={[styles.text, { color: textColor }]}>{label}</StyledText>}
         </TouchableOpacity>
-    )
+    );
 };
 
 const styles = StyleSheet.create({
@@ -26,13 +42,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         gap: 8,
-        backgroundColor: Colors.primary,
-        borderRadius: 4
+        borderRadius: 4,
     },
     text: {
-        color: Colors.white,
+        fontWeight: 600,
     },
-    icon: {
-        color: Colors.white,
-    }
+    icon: {},
 });

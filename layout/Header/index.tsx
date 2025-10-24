@@ -1,5 +1,5 @@
 import { Logo } from "@/components/svg/Logo";
-import { Colors } from "@/constants/ui";
+import { COLORS } from "@/constants/colors";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Path, Svg } from 'react-native-svg';
 
@@ -9,7 +9,7 @@ export const Header = () => {
             <Logo />
         </TouchableOpacity>
         <TouchableOpacity style={styles.burger}>
-            <Svg width="24" height="12" viewBox="0 0 16 12" fill={Colors.primary}>
+            <Svg width="24" height="12" viewBox="0 0 16 12" fill={COLORS.PRIMARY}>
               <Path
                 d="M872,958h-8a1,1,0,0,1-1-1h0a1,1,0,0,1,1-1h8a1,1,0,0,1,1,1h0A1,1,0,0,1,872,958Zm6-5H864a1,1,0,0,1,0-2h14A1,1,0,0,1,878,953Zm0-5H864a1,1,0,0,1,0-2h14A1,1,0,0,1,878,948Z"
                 transform="translate(-863 -946)"></Path>
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'stretch',
         justifyContent: 'space-between',
-        backgroundColor: Colors.white,
+        backgroundColor: COLORS.WHITE,
     },
     logo: {
         width: 125,

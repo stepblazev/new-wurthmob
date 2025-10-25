@@ -22,11 +22,11 @@ export const SearchBar = () => {
     };
 
     return (
-        <View style={[styles.searchBar, isSearching ? { bottom: 'auto', top: 0 } : null]}>
+        <View style={[styles.searchBar]}>
             <Ionicons name="search-outline" style={styles.searchIcon} />
             <TextInput
                 ref={inputRef}
-                style={styles.searchInput}
+                style={[styles.searchInput]}
                 value={query}
                 onFocus={() => setQuery('')}
                 onChangeText={value => setQuery(value)}
@@ -44,11 +44,8 @@ export const SearchBar = () => {
 const styles = StyleSheet.create({
     searchBar: {
         padding: 8,
-        backgroundColor: 'white',
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
+        backgroundColor: COLORS.WHITE,
+        zIndex: 20
     },
     searchIcon: {
         position: 'absolute',

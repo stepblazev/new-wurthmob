@@ -3,7 +3,7 @@ import { COLORS } from "@/constants/colors";
 import { useSideMenu } from "@/stores/side-menu.store";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Keyboard, StyleSheet, TouchableOpacity, View } from "react-native";
 
 export const Header = () => {
     const router = useRouter();
@@ -19,6 +19,7 @@ export const Header = () => {
     
     const logoHandler = () => {
         router.navigate('/');
+        Keyboard.dismiss();
         hideMenu();
     }
     
@@ -39,7 +40,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: COLORS.WHITE,
-        // elevation: 10,
         zIndex: 50
     },
     logo: {

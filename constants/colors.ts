@@ -1,6 +1,8 @@
 export const COLORS = {
     PRIMARY: '#cc0000',
-    MILD_PRIMARY: '#d2334d',
+    DARK: '#1d1d1d',
+    LIGHT: '#d3d3d3ff',
+    
     TEXT_DARK: '#1d1d1dff',
     TEXT_LIGHT: '#cacacaff',
     
@@ -20,6 +22,7 @@ export const COLORS = {
 
     SEARCH_BORDER: '#d1d1d1ff',
     SEARCH_BORDER_ACTIVE: '#cc0000',
+    SEARCH_RESULT_BACKGROUND: '#ffffffff',
     
     RESET_PASSWORD_TEXT: '#2a52be',
     SIDE_MENU_PARTS_BORDER_COLOR: '#f2f2f2',

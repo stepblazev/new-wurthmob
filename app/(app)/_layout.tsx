@@ -1,7 +1,7 @@
 import { COLORS } from '@/constants/colors';
 import { Header } from '@/layout/Header';
 import { Menu } from '@/layout/Menu';
-import { SearchBar } from '@/layout/SearchBar';
+import { Search } from '@/layout/Search';
 import { SideMenu } from '@/layout/SideMenu';
 import { useUser } from '@/stores/user.store';
 import { Redirect, Slot } from 'expo-router';
@@ -20,7 +20,7 @@ export default function MainLayout() {
             <SideMenu />
             <View style={styles.body}>
                 <Slot />
-                <SearchBar />
+                <Search />
             </View>
             <Menu />
         </>

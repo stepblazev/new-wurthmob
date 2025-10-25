@@ -20,12 +20,13 @@ export default function RootLayout() {
     useEffect(() => {
         const initUser = async () => {
             const userJson = await AsyncStorage.getItem(STORAGE_KEYS.USER_DATA);
+            
             if (userJson) {
                 const userData = JSON.parse(userJson);
                 useUser.getState().login(userData);
-                router.navigate('/home');
+                router.replace('/home');
             } else {
-                router.navigate('/auth/login');
+                router.replace('/auth/login');
             }
         };
 

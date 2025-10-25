@@ -11,10 +11,6 @@ export const useSearch = create<SearchState>(set => ({
     query: '',
     isSearching: false,
     
-    setQuery: (payload) => {
-        const isSearching = payload.length > 0;
-        set({ isSearching, query: payload });
-    },
-    
+    setQuery: (payload) =>  set({ isSearching: true, query: payload }),
     reset: () => set({ isSearching: false, query: '' }),
 }));

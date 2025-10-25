@@ -1,35 +1,53 @@
 import { StyledText } from '@/components/StyledText';
 import { COLORS } from '@/constants/colors';
 import { STORAGE_KEYS } from '@/constants/storage-keys';
+import { IconNames } from '@/core/types';
 import { useSideMenu } from '@/stores/side-menu.store';
 import { useUser } from '@/stores/user.store';
 import { inDev } from '@/utils/functions';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Href, useRouter } from 'expo-router';
-import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+
+interface ISideMenuLink {
+    icon?: IconNames;
+    label: string;
+    handler: () => void;
+}
+
+const { width } = Dimensions.get('window');
 
 export const SideMenu: React.FC = () => {
     const { isActive, hideMenu } = useSideMenu();
     const { user, logout } = useUser();
-    const router = useRouter();
 
-    const linkHandler = (path: Href) => {
-         router.navigate(path);
-         hideMenu();
-    }
-    
+    const translateX = useSharedValue(width);
+
+    useEffect(() => {
+        translateX.value = withTiming(isActive ? 0 : width, { duration: 600, easing: Easing.out(Easing.exp) });
+    }, [isActive]);
+
+    const animatedStyle = useAnimatedStyle(() => ({
+        transform: [{ translateX: translateX.value }],
+    }));
+
     const exitHandler = async () => {
         await AsyncStorage.removeItem(STORAGE_KEYS.USER_DATA);
         logout();
         hideMenu();
-    }
-    
-    if (!isActive) return null;
-    
+    };
+
+    const [links, setLinks] = useState<ISideMenuLink[]>([
+        { icon: 'settings', label: 'Настройки', handler: () => inDev() },
+        { icon: 'mail', label: 'Контакты / Реквизиты', handler: () => inDev() },
+        { icon: 'pricetag', label: 'Акции', handler: () => inDev() },
+        { icon: 'exit', label: 'Выход', handler: exitHandler },
+    ]);
+
     return (
-        <View style={[styles.menu]}>
+        <Animated.View style={[styles.menu, animatedStyle]}>
             <StyledText style={styles.title}>Профиль</StyledText>
 
             {user && (
@@ -51,24 +69,20 @@ export const SideMenu: React.FC = () => {
             )}
 
             <View style={styles.links}>
-                <TouchableOpacity style={styles.link} onPress={() => inDev()}>
-                    <Ionicons name="settings" style={styles.linkIcon} />
-                    <StyledText style={styles.linkText}>Настройки</StyledText>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.link} onPress={() => inDev()}>
-                    <Ionicons name="mail" style={styles.linkIcon} />
-                    <StyledText style={styles.linkText}>Контакты / Реквизиты</StyledText>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.link} onPress={() => inDev()}>
-                    <Ionicons name="pricetag" style={styles.linkIcon} />
-                    <StyledText style={styles.linkText}>Акции</StyledText>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.link} onPress={exitHandler}>
-                    <Ionicons name="exit" style={styles.linkIcon} />
-                    <StyledText style={styles.linkText}>Выход</StyledText>
-                </TouchableOpacity>
+                {links.map((link, i) => {
+                    const delay = i * 100;
+
+                    return (
+                        <Animated.View key={link.label}>
+                            <TouchableOpacity style={styles.link} onPress={link.handler}>
+                                {link.icon && <Ionicons name={link.icon} style={styles.linkIcon} />}
+                                <StyledText style={styles.linkText}>{link.label}</StyledText>
+                            </TouchableOpacity>
+                        </Animated.View>
+                    );
+                })}
             </View>
-        </View>
+        </Animated.View>
     );
 };
 
@@ -82,7 +96,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 2, height: 0 },
         shadowOpacity: 0.2,
         shadowRadius: 8,
-        elevation: 6,
         zIndex: 30,
     },
     title: {
@@ -134,6 +147,7 @@ const styles = StyleSheet.create({
     links: {
         marginTop: 48,
         gap: 24,
+        alignItems: 'flex-start',
     },
     link: {
         flexDirection: 'row',

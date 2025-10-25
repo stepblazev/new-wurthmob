@@ -58,11 +58,11 @@ const styles = StyleSheet.create({
     },
     unsafeBackgroundTop: {
         top: 0,
-        backgroundColor: COLORS.WHITE,
+        backgroundColor: COLORS.PAGE_BACKGROUND,
     },
     unsafeBackgroundBottom: {
         bottom: 0,
-        backgroundColor: COLORS.WHITE,
+        backgroundColor: COLORS.PAGE_BACKGROUND,
     },
     safeArea: {
         flex: 1,

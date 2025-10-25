@@ -17,6 +17,9 @@ export const COLORS = {
     
     TEXT_INPUT_BG: '#f5f5f5ff',
     TEXT_INPUT_BORDER: '#646464ff',
+
+    SEARCH_BORDER: '#d1d1d1ff',
+    SEARCH_BORDER_ACTIVE: '#cc0000',
     
     RESET_PASSWORD_TEXT: '#2a52be',
     SIDE_MENU_PARTS_BORDER_COLOR: '#f2f2f2',

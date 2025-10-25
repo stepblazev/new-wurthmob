@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 export default function Catalog() {
     return (
         <View style={styles.container}>
-            <StyledText style={{ fontSize: 24 }}>Favorites page</StyledText>
+            <StyledText style={{ fontSize: 24, textAlign: 'center' }}>Favorites page</StyledText>
         </View>
     );
 }

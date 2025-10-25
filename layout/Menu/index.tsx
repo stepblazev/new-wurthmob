@@ -5,7 +5,7 @@ import { Href, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
-interface MenuLink {
+interface IMenuLink {
     href: Href;
     label: string;
     icon: React.ComponentProps<typeof Ionicons>['name'];
@@ -14,7 +14,7 @@ interface MenuLink {
 export const Menu = () => {
     const router = useRouter();
 
-    const [links, setLinks] = useState<MenuLink[]>([
+    const [links, setLinks] = useState<IMenuLink[]>([
         { href: '/', icon: 'home-outline', label: 'Главная' },
         { href: '/catalog', icon: 'search-outline', label: 'Каталог' },
         { href: '/cart', icon: 'cart-outline', label: 'Корзина' },

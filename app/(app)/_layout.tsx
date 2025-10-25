@@ -1,6 +1,7 @@
 import { COLORS } from '@/constants/colors';
 import { Header } from '@/layout/Header';
 import { Menu } from '@/layout/Menu';
+import { SearchBar } from '@/layout/SearchBar';
 import { SideMenu } from '@/layout/SideMenu';
 import { useUser } from '@/stores/user.store';
 import { Redirect, Slot } from 'expo-router';
@@ -19,6 +20,7 @@ export default function MainLayout() {
             <SideMenu />
             <View style={styles.body}>
                 <Slot />
+                <SearchBar />
             </View>
             <Menu />
         </>
@@ -27,8 +29,9 @@ export default function MainLayout() {
 
 const styles = StyleSheet.create({
     body: {
+        position: 'relative',
         flex: 1,
-        alignItems: 'center',
+        alignItems: 'stretch',
         justifyContent: 'center',
         backgroundColor: COLORS.PAGE_BACKGROUND,
     },

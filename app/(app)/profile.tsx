@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 export default function Profile() {
     return (
         <View style={styles.container}>
-            <StyledText style={{ fontSize: 24 }}>Profile page</StyledText>
+            <StyledText style={{ fontSize: 24, textAlign: 'center' }}>Profile page</StyledText>
         </View>
     );
 }

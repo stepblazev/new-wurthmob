@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 export default function Index() {
     return (
         <View style={styles.container}>
-            <StyledText style={{ fontSize: 24 }}>Home page</StyledText>
+            <StyledText style={{ fontSize: 24, textAlign: 'center' }}>Home page</StyledText>
         </View>
     );
 }

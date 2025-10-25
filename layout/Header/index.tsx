@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: COLORS.WHITE,
-        elevation: 10,
+        // elevation: 10,
         zIndex: 50
     },
     logo: {

@@ -1,4 +1,5 @@
 import { COLORS } from '@/constants/colors';
+import { IconNames } from '@/core/types';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import { StyledText } from './StyledText';
@@ -8,7 +9,7 @@ type StyledButtonType = 'primary' | 'secondary';
 type StyledButtonProps = TouchableOpacityProps & {
     type?: StyledButtonType;
     label?: string;
-    icon?: React.ComponentProps<typeof Ionicons>['name'];
+    icon?: IconNames;
     iconSize?: number;
 };
 

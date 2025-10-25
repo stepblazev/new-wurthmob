@@ -53,7 +53,7 @@ export const LoginForm: React.FC = () => {
             }
             
             ToastAndroid.show('Успешная авторизация', ToastAndroid.BOTTOM);
-            router.replace('/home');
+            router.replace('/');
         }
         
         hideLoader();

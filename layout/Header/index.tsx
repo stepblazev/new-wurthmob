@@ -18,7 +18,7 @@ export const Header = () => {
     }
     
     const logoHandler = () => {
-        router.navigate('/home');
+        router.navigate('/');
         hideMenu();
     }
     

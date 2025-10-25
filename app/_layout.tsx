@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { StatusBar, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+SplashScreen.preventAutoHideAsync();
 SplashScreen.setOptions({
     duration: 1000,
     fade: true,
@@ -24,10 +25,11 @@ export default function RootLayout() {
             if (userJson) {
                 const userData = JSON.parse(userJson);
                 useUser.getState().login(userData);
-                router.replace('/home');
+                router.replace('/');
             } else {
                 router.replace('/auth/login');
             }
+            SplashScreen.hide();
         };
 
         initUser();

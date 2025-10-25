@@ -15,7 +15,7 @@ export const Menu = () => {
     const router = useRouter();
 
     const [links, setLinks] = useState<MenuLink[]>([
-        { href: '/home', icon: 'home-outline', label: 'Главная' },
+        { href: '/', icon: 'home-outline', label: 'Главная' },
         { href: '/catalog', icon: 'search-outline', label: 'Каталог' },
         { href: '/cart', icon: 'cart-outline', label: 'Корзина' },
         { href: '/favorites', icon: 'heart-outline', label: 'Избранное' },

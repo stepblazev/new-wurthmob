@@ -1,7 +1,7 @@
 import { StyledText } from '@/components/StyledText';
 import { StyleSheet, View } from 'react-native';
 
-export default function Home() {
+export default function Index() {
     return (
         <View style={styles.container}>
             <StyledText style={{ fontSize: 24 }}>Home page</StyledText>

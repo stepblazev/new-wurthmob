@@ -1,23 +1,34 @@
 import { StyledButton } from '@/components/StyledButton';
+import { StyledCheckbox } from '@/components/StyledCheckbox';
 import { StyledInput } from '@/components/StyledInput';
+import { StyledText } from '@/components/StyledText';
+import { COLORS } from '@/constants/colors';
+import { STORAGE_KEYS } from '@/constants/storage-keys';
 import { UserRepository } from '@/repositories/user.repository';
 import { useGloader } from '@/stores/gloader.store';
 import { useUser } from '@/stores/user.store';
-import { sleep, stripTags } from '@/utils/functions';
+import { inDev, sleep, stripTags } from '@/utils/functions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 import { Controller, useForm } from 'react-hook-form';
-import { StyleSheet, ToastAndroid, View } from 'react-native';
+import { StyleSheet, ToastAndroid, TouchableOpacity, View } from 'react-native';
 
 interface ILoginForm {
     email: string;
     password: string;
+    remember: boolean;
 }
 
 export const LoginForm: React.FC = () => {
     const router = useRouter();
-    const { control, handleSubmit, formState } = useForm<ILoginForm>();
     const { showLoader, hideLoader } = useGloader();
     const userStore = useUser();
+    
+    const { control, handleSubmit, formState } = useForm<ILoginForm>({
+        defaultValues: {
+            remember: false
+        }
+    });
     
     const onSubmit = async (data: ILoginForm) => {
         showLoader("Выполняется авторизация");
@@ -32,9 +43,14 @@ export const LoginForm: React.FC = () => {
             ToastAndroid.show(stripTags(response.MESSAGE), ToastAndroid.BOTTOM);
         } else {
             const userId = response;
-            response = await UserRepository.getById({ id: userId });
+            const userData = await UserRepository.getById({ id: userId });
+            userStore.login(userData);
             
-            userStore.login(response)
+            if (data.remember) {
+                await AsyncStorage.setItem(STORAGE_KEYS.USER_DATA, JSON.stringify(userData));
+            } else {
+                await AsyncStorage.removeItem(STORAGE_KEYS.USER_DATA);
+            }
             
             ToastAndroid.show('Успешная авторизация', ToastAndroid.BOTTOM);
             router.replace('/home');
@@ -42,7 +58,7 @@ export const LoginForm: React.FC = () => {
         
         hideLoader();
     };
-
+    
     return (
         <View style={styles.container}>
             <Controller
@@ -82,8 +98,20 @@ export const LoginForm: React.FC = () => {
                 )}
             />
             
-            <StyledButton label="Войти" icon='key-outline' onPress={handleSubmit(onSubmit)} style={{ marginTop: 24 }} />
-            <StyledButton label="Регистрация" icon='person-circle-outline' onPress={() => router.replace('/home')} type="secondary" />
+            <Controller
+                control={control}
+                name="remember"
+                render={({ field: { onChange, value } }) => (
+                    <StyledCheckbox checked={value} onCheck={() => onChange(!value)} label='Запомнить меня' />
+                )}
+            />
+            
+            <TouchableOpacity onPress={() => inDev()}>
+                <StyledText style={styles.resetPassword}>Забыли пароль?</StyledText>
+            </TouchableOpacity>
+            
+            <StyledButton label="Войти" icon='key-outline' onPress={handleSubmit(onSubmit)} style={{ marginTop: 12 }} />
+            <StyledButton label="Регистрация" icon='person-circle-outline' onPress={() => inDev()} type="secondary" />
         </View>
     );
 };
@@ -92,4 +120,9 @@ const styles = StyleSheet.create({
     container: {
         gap: 8,
     },
+    resetPassword: {
+        marginTop: 12,
+        color: COLORS.RESET_PASSWORD_TEXT,
+        textAlign: 'center'
+    }
 });

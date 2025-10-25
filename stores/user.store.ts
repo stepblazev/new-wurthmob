@@ -11,6 +11,7 @@ interface IUser {
     SECOND_NAME: string;
     DATE_REGISTER: string;
     UF_UNP: string;
+    UF_DEBT: string;
 }
 
 interface IUserStore {

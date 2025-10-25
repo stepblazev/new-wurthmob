@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     },
     error: {
         marginTop: 2,
-        textAlign: 'right',
+        textAlign: 'left',
         color: COLORS.DANGER,
         fontSize: 12
     },

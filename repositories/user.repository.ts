@@ -15,7 +15,7 @@ export class UserRepository {
         return response.data;
     }
     static async getById(payload: IGetByIdPayload) {
-        const response = await HttpApi.get('/user/auth.php', { params: payload });
-        return response;
+        const response = await HttpApi.get('/user/getById.php', { params: payload });
+        return response.data;
     }
 }

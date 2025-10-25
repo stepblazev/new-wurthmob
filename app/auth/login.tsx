@@ -4,7 +4,7 @@ import { LoginForm } from '@/layout/Forms/Login';
 import { FC } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
-const Auth: FC = () => {
+const Login: FC = () => {
     return (
         <View style={styles.container}>
             <Image source={require('@/assets/logo.png')} style={{ marginTop: -120, width: 250, height: 50 }}  />
@@ -25,4 +25,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Auth;
+export default Login;

@@ -3,7 +3,7 @@ import { STORAGE_KEYS } from '@/constants/storage-keys';
 import { Gloader } from '@/layout/Gloader';
 import { useUser } from '@/stores/user.store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { StatusBar, StyleSheet, View } from 'react-native';
@@ -15,18 +15,23 @@ SplashScreen.setOptions({
 });
 
 export default function RootLayout() {
+    const router = useRouter();
+
     useEffect(() => {
         const initUser = async () => {
             const userJson = await AsyncStorage.getItem(STORAGE_KEYS.USER_DATA);
             if (userJson) {
                 const userData = JSON.parse(userJson);
                 useUser.getState().login(userData);
+                router.navigate('/home');
+            } else {
+                router.navigate('/auth/login');
             }
         };
-        
+
         initUser();
     }, []);
-    
+
     return (
         <>
             <StatusBar barStyle={'dark-content'} />

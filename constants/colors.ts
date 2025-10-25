@@ -21,7 +21,7 @@ export const COLORS = {
     RESET_PASSWORD_TEXT: '#2a52be',
     SIDE_MENU_PARTS_BORDER_COLOR: '#f2f2f2',
     
-    BACKGROUND_COLOR: '#ffffff',
+    PAGE_BACKGROUND: '#ffffff',
     
     DANGER: '#e21b1bff',
     WARNING: '#f5c117ff',
